@@ -10,5 +10,7 @@
             ID = id;
             Value = value;
         }
+
+        public void SetValue(int value) => Value = value;
     }
 }

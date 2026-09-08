@@ -1,4 +1,5 @@
 ﻿
+using UnityEngine;
 
 namespace NMGrid.Grid
 {
@@ -26,8 +27,29 @@ namespace NMGrid.Grid
                     id++;
                 }
             }
+            
+            AddTile(tiles);
+            AddTile(tiles);
 
             return new Board(tiles, 0, 0);
+        }
+
+        private void AddTile(Tile[,] tiles)
+        {
+            int width = tiles.GetLength(0);
+            int height = tiles.GetLength(1);
+
+            int x;
+            int y;
+
+            do
+            {
+                x = Random.Range(0, width);
+                y = Random.Range(0, height);
+            } 
+            while (tiles[x, y].Value != 0);
+            
+            tiles[x,y].SetValue(2);
         }
     }
 }
