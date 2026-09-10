@@ -11,6 +11,12 @@
             Value = value;
         }
 
+        public Tile(Tile tile)
+        {
+            ID = tile.ID;
+            Value = tile.Value;
+        }
+
         public void SetValue(int value) => Value = value;
     }
 }

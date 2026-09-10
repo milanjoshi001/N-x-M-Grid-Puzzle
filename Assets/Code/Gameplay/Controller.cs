@@ -6,11 +6,12 @@ namespace NMGrid.Gameplay
 {
     public class Controller : MonoBehaviour
     {
-        [SerializeField] GridVisual _gridVisual;
+        [SerializeField] private GridVisual _gridVisual;
         [SerializeField] private Input _input;
 
         private Grid.Grid _grid;
         private Board _board;
+        private Board _prevBoard;
         
         private void Awake()
         {
@@ -31,12 +32,24 @@ namespace NMGrid.Gameplay
 
         private void HandleMove(MoveDirection direction)
         {
+            Board prevBoard = _board.CloneBoard();
             bool moved = _grid.Move(_board, direction);
             
             if(!moved)
                 return;
             
+            _prevBoard = prevBoard;
             _grid.AddRandomTile(_board);
+            _gridVisual.Render(_board);
+        }
+
+        public void Undo()
+        {
+            if (_prevBoard == null)
+                return;
+            
+            _board = _prevBoard;
+            _prevBoard = null;
             _gridVisual.Render(_board);
         }
     }
