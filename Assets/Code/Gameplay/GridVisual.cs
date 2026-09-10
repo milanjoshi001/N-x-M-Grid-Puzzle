@@ -27,6 +27,12 @@ namespace NMGrid.Gameplay
         
         public void Render(Board board)
         {
+            foreach (Transform child in _tileTransform)
+            {
+                child.gameObject.SetActive(false);
+                Destroy(child.gameObject);
+            }
+            
             var width = board.Tiles.GetLength(0);
             var height = board.Tiles.GetLength(1);
 

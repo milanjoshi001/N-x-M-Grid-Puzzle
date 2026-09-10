@@ -60,16 +60,16 @@ namespace NMGrid.Grid
             switch (moveDirection)
             {
                 case MoveDirection.Left:
-                    moved = MoveLeft(board);
+                    moved = MoveHorizontal(board, false);
                     break;
                 case MoveDirection.Right:
-                    moved = MoveRight(board);
+                    moved = MoveHorizontal(board, true);
                     break;
                 case MoveDirection.Up:
-                    moved = MoveUp(board);
+                    moved = MoveVerticel(board, true);
                     break;
                 case MoveDirection.Down:
-                    moved = MoveDown(board);
+                    moved = MoveVerticel(board, false);
                     break;
             }
 
@@ -79,143 +79,91 @@ namespace NMGrid.Grid
             return moved;
         }
 
-        private bool MoveLeft(Board board)
+        private bool MoveHorizontal(Board board, bool reverse)
         {
-            bool moved = false;
+            bool boardChanged = false;
 
             for (int y = 0; y < _height; y++)
             {
-                List<Tile> rows = GetRows(board, y);
-                List<Tile> mergedTiles = MergeTiles(rows);
+                List<Tile> line = new List<Tile>();
 
-                for (int x = 0; x < _width; x++)
+                if (!reverse)
                 {
-                    Tile newTile = x < mergedTiles.Count ? mergedTiles[x] : null;
+                    for (int x = 0; x < _width; x++)
+                    {
+                        if(board.Tiles[x, y] != null)
+                            line.Add(board.Tiles[x, y]);
+                    }
+                }
+                else
+                {
+                    for (int x = _width - 1; x >= 0; x--)
+                    {
+                        if(board.Tiles[x, y] != null)
+                            line.Add(board.Tiles[x, y]);
+                    }
+                }
+                
+                List<Tile>  mergedTiles = MergeTiles(board, line);
+
+                for (int i = 0; i < _width; i++)
+                {
+                    Tile newTile = i < mergedTiles.Count ? mergedTiles[i] : null;
+                    int x = reverse ? _width - 1 - i : i;
 
                     if (board.Tiles[x, y] != newTile)
-                    {
-                        moved = true;
-                    }
+                        boardChanged = true;
 
                     board.Tiles[x, y] = newTile;
-                }
-            }
-
-            return moved;
-        }
-        
-        private bool MoveRight(Board board)
-        {
-            bool moved = false;
-
-            for (int y = 0; y < _height; y++)
-            {
-                List<Tile> rows = GetRows(board, y);
-                rows.Reverse();
-                List<Tile> mergedTiles = MergeTiles(rows);
-
-                for (int x = 0; x < _width; x++)
-                {
-                    Tile newTile = x >= _width - mergedTiles.Count
-                        ? mergedTiles[x - (_width - mergedTiles.Count)]
-                        : null;
-
-                    if (board.Tiles[x, y] != newTile)
-                    {
-                        moved = true;
-                    }
-
-                    board.Tiles[x, y] = newTile;
-                }
-            }
-
-            return moved;
-        }
-        
-        private bool MoveUp(Board board)
-        {
-            bool moved = false;
-
-            for (int x = 0; x < _width; x++)
-            {
-                List<Tile> columns = GetColumns(board, x);
-                List<Tile> mergedTiles = MergeTiles(columns);
-
-                for (int y = 0; y < _height; y++)
-                {
-                    Tile newTile = y < mergedTiles.Count ? mergedTiles[y] : null;
-
-                    if (board.Tiles[y, y] != newTile)
-                    {
-                        moved = true;
-                    }
-
-                    board.Tiles[x, y] = newTile;
-                }
-            }
-
-            return moved;
-        }
-        
-        private bool MoveDown(Board board)
-        {
-            bool moved = false;
-
-            for (int x = 0; x < _width; x++)
-            {
-                List<Tile> columns = GetColumns(board, x);
-                columns.Reverse();
-                List<Tile> mergedTiles = MergeTiles(columns);
-
-                for (int y = 0; y < _height; y++)
-                {
-                    Tile newTile = y >= _height - mergedTiles.Count
-                        ? mergedTiles[y - (_height - mergedTiles.Count)]
-                        : null;
-
-                    if (board.Tiles[y, y] != newTile)
-                    {
-                        moved = true;
-                    }
-
-                    board.Tiles[x, y] = newTile;
-                }
-            }
-
-            return moved;
-        }
-
-        private List<Tile> GetRows(Board board, int y)
-        {
-            List<Tile> rows = new ();
-
-            for (int x = 0; x < _width; x++)
-            {
-                if (board.Tiles[x, y] != null)
-                {
-                    rows.Add(board.Tiles[x, y]);
-                }
-            }
-
-            return rows;
-        }
-
-        private List<Tile> GetColumns(Board board, int x)
-        {
-            List<Tile> columns = new ();
-
-            for (int y = 0; y < _height; y++)
-            {
-                if (board.Tiles[x, y] != null)
-                {
-                    columns.Add(board.Tiles[x, y]);
                 }
             }
             
-            return columns;
+            return boardChanged;
+        }
+        
+        private bool MoveVerticel(Board board, bool reverse)
+        {
+            bool boardChanged = false;
+
+            for (int x = 0; x < _width; x++)
+            {
+                List<Tile> line = new List<Tile>();
+
+                if (reverse)
+                {
+                    for (int y = _height - 1; y >= 0; y--)
+                    {
+                        if(board.Tiles[x, y] != null)
+                            line.Add(board.Tiles[x, y]);
+                    }
+                }
+                else
+                {
+                    for (int y = 0; y < _height; y++)
+                    {
+                        if(board.Tiles[x, y] != null)
+                            line.Add(board.Tiles[x, y]);
+                    }
+                }
+                
+                List<Tile>  mergedTiles = MergeTiles(board, line);
+
+                for (int i = 0; i < _height; i++)
+                {
+                    Tile newTile = i < mergedTiles.Count ? mergedTiles[i] : null;
+                    int y = reverse ? _height - 1 - i : i;
+
+                    if (board.Tiles[x, y] != newTile)
+                        boardChanged = true;
+
+                    board.Tiles[x, y] = newTile;
+                }
+            }
+            
+            return boardChanged;
         }
 
-        private List<Tile> MergeTiles(List<Tile> tiles)
+        private List<Tile> MergeTiles(Board board, List<Tile> tiles)
         {
             List<Tile> result = new();
 
@@ -228,6 +176,7 @@ namespace NMGrid.Grid
                     Tile nextTile = tiles[i + 1];
 
                     tile.SetValue(tile.Value * 2);
+                    board.AddScore(tile.Value);
                     result.Add(tile);
                     i++;
                 }

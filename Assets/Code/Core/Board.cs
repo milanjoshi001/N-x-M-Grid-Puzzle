@@ -14,5 +14,7 @@
         }
 
         public void AddMoves() => Moves++;
+
+        public void AddScore(int amount) => Score += amount;
     }
 }
