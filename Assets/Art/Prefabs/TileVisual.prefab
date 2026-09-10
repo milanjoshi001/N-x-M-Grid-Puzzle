@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7bc8e4fad3147db8d484f3d10ea7c04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NMGrid.Gameplay.TileVisual
-  _innerTileVisual: {fileID: 3218181958141823106}
+  _innerTileVisual: {fileID: 7248642391934944400}
   _tileValueText: {fileID: 4522065190118873819}
 --- !u!1 &1878557009797916973
 GameObject:
