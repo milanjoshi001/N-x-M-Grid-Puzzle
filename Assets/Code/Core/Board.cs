@@ -12,5 +12,7 @@
             Score = score;
             Moves = moves;
         }
+
+        public void AddMoves() => Moves++;
     }
 }

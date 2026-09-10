@@ -7,8 +7,24 @@ namespace NMGrid.Gameplay
     {
         [SerializeField] private TileVisual _tile;
         [SerializeField] private Transform _tileTransform;
+        
+        [SerializeField] private GameObject _cellPrefab;
+        [SerializeField] private Transform _cellTransform;
+        
         [SerializeField] private Vector2 _tileSize;
 
+        public void CreateBoardVisuals(int width, int height)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    var tile = Instantiate(_cellPrefab, _cellTransform);
+                    tile.transform.localPosition = new Vector3(x * _tileSize.x, y * _tileSize.y, 0);
+                }
+            }
+        }
+        
         public void Render(Board board)
         {
             var width = board.Tiles.GetLength(0);
@@ -19,6 +35,8 @@ namespace NMGrid.Gameplay
                 for (int y = 0; y < height; y++)
                 {
                     var tile = board.Tiles[x, y];
+
+                    if (tile == null) continue;
 
                     var tileVisual = Instantiate(_tile, _tileTransform);
                     tileVisual.Initialize(tile);

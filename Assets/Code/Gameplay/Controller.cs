@@ -7,6 +7,7 @@ namespace NMGrid.Gameplay
     public class Controller : MonoBehaviour
     {
         [SerializeField] GridVisual _gridVisual;
+        [SerializeField] private Input _input;
 
         private Grid.Grid _grid;
         private Board _board;
@@ -19,6 +20,23 @@ namespace NMGrid.Gameplay
 
         private void Start()
         {
+            _gridVisual.CreateBoardVisuals(_board.Tiles.GetLength(0), _board.Tiles.GetLength(1));
+            _gridVisual.Render(_board);
+        }
+
+        private void OnEnable()
+        {
+            _input.OnMove += HandleMove;
+        }
+
+        private void HandleMove(MoveDirection direction)
+        {
+            bool moved = _grid.Move(_board, direction);
+            
+            if(!moved)
+                return;
+            
+            _grid.AddRandomTile(_board);
             _gridVisual.Render(_board);
         }
     }
