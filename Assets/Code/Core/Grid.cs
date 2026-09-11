@@ -10,6 +10,7 @@ namespace NMGrid.Grid
         private int _height;
 
         private int _nextTileID;
+        private Board _board;
 
         public Grid(int width, int height)
         {
@@ -20,12 +21,12 @@ namespace NMGrid.Grid
         public Board CreateBoard()
         {
             Tile[,] tiles = new Tile[_width, _height];
-            Board  board = new Board(tiles, 0, 0);
+            _board = new Board(tiles, 0, 0);
             
-            AddRandomTile(board);
-            AddRandomTile(board);
+            AddRandomTile(_board);
+            AddRandomTile(_board);
 
-            return board;
+            return _board;
         }
 
         public void AddRandomTile(Board board)
@@ -187,6 +188,11 @@ namespace NMGrid.Grid
             }
 
             return result;
+        }
+
+        public void ClearBoard()
+        {
+            _board = null;
         }
     }
 }

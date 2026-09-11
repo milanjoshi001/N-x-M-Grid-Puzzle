@@ -1,5 +1,6 @@
 ﻿using System;
 using NMGrid.Grid;
+using NMGrid.UI;
 using UnityEngine;
 
 namespace NMGrid.Gameplay
@@ -13,8 +14,12 @@ namespace NMGrid.Gameplay
         private Board _board;
         private Board _prevBoard;
         
+        public static Controller Instance { get; private set; }
+        
         private void Awake()
         {
+            if (Instance == null)
+                Instance = this;
             _grid = new Grid.Grid(4, 4);
             _board = _grid.CreateBoard();
         }
@@ -41,6 +46,8 @@ namespace NMGrid.Gameplay
             _prevBoard = prevBoard;
             _grid.AddRandomTile(_board);
             _gridVisual.Render(_board);
+            GameplayUI.Instance.UpdateMoves(_board.Moves);
+            GameplayUI.Instance.UpdateScore(_board.Score);
         }
 
         public void Undo()
@@ -50,6 +57,14 @@ namespace NMGrid.Gameplay
             
             _board = _prevBoard;
             _prevBoard = null;
+            _gridVisual.Render(_board);
+        }
+
+        public void Restart()
+        {
+            _gridVisual.ClearBoard();
+            _grid.ClearBoard();
+            _board = _grid.CreateBoard();
             _gridVisual.Render(_board);
         }
     }

@@ -51,5 +51,13 @@ namespace NMGrid.Gameplay
                 }
             }
         }
+
+        public void ClearBoard()
+        {
+            foreach (Transform child in _tileTransform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }
