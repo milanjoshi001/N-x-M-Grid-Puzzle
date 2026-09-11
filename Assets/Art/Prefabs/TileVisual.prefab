@@ -67,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 772597189, guid: d6140137e301d284e9668035fbe90f68, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -90,7 +90,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NMGrid.Gameplay.TileVisual
   _innerTileVisual: {fileID: 7248642391934944400}
-  _tileValueText: {fileID: 4522065190118873819}
+  _sprites:
+  - {fileID: -2082882057, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: 1296931572, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: -367770689, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: -798120631, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: -464774152, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: 247035216, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: 1429006137, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: -2048608257, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: -64013555, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: -260851452, guid: d6140137e301d284e9668035fbe90f68, type: 3}
+  - {fileID: -146164084, guid: d6140137e301d284e9668035fbe90f68, type: 3}
 --- !u!1 &1878557009797916973
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +138,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -10, y: -10}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2365607260143225907
 CanvasRenderer:
@@ -150,14 +161,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2082882057, guid: d6140137e301d284e9668035fbe90f68, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -184,7 +195,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9028930548822328578
 RectTransform:
   m_ObjectHideFlags: 0
