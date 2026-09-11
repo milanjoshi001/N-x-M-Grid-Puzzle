@@ -54,6 +54,44 @@ namespace NMGrid.Grid
             board.Tiles[pos.x, pos.y] = new Tile(_nextTileID++, value);
         }
 
+        public bool CanMove(Board board)
+        {
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    if (board.Tiles[x, y] == null)
+                        return true;
+                }
+            }
+
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    Tile current = board.Tiles[x, y];
+
+                    if (x + 1 < _width)
+                    {
+                        Tile right = board.Tiles[x + 1, y];
+
+                        if (current.Value == right.Value)
+                            return true;
+                    }
+
+                    if (y + 1 < _height)
+                    {
+                        Tile up = board.Tiles[x, y + 1];
+
+                        if (current.Value == up.Value)
+                            return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public bool Move(Board board, MoveDirection moveDirection)
         {
             bool moved = false;

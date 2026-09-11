@@ -45,6 +45,7 @@ namespace NMGrid.Gameplay
             
             _prevBoard = prevBoard;
             _grid.AddRandomTile(_board);
+            CheckGameOver();
             _gridVisual.Render(_board);
             GameplayUI.Instance.UpdateMoves(_board.Moves);
             GameplayUI.Instance.UpdateScore(_board.Score);
@@ -58,6 +59,15 @@ namespace NMGrid.Gameplay
             _board = _prevBoard;
             _prevBoard = null;
             _gridVisual.Render(_board);
+        }
+
+        private void CheckGameOver()
+        {
+            bool gameOver = !_grid.CanMove(_board);
+
+            _board.SetGameOver(gameOver);
+
+            GameplayUI.Instance.GameOver(gameOver);
         }
 
         public void Restart()

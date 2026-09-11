@@ -5,6 +5,7 @@
         public Tile[,]  Tiles { get; private set; }
         public int Score { get; private set; }
         public int Moves { get; private set; }
+        public bool IsGameOver { get; private set; }
         
         public Board(Tile[,] tiles, int score, int moves)
         {
@@ -16,6 +17,8 @@
         public void AddMoves() => Moves++;
 
         public void AddScore(int amount) => Score += amount;
+        
+        public void SetGameOver(bool value) => IsGameOver = value;
 
         public Board CloneBoard()
         {
@@ -35,7 +38,11 @@
                 }
             }
             
-            return new Board(tiles, Score, Moves);
+            Board clone =  new Board(tiles, Score, Moves);
+            
+            clone.SetGameOver(IsGameOver);
+            
+            return clone;
         }
     }
 }

@@ -2,7 +2,6 @@
 using NMGrid.Gameplay;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace NMGrid.UI
 {
@@ -10,9 +9,7 @@ namespace NMGrid.UI
     {
         [SerializeField] private TextMeshProUGUI _movesText;
         [SerializeField] private TextMeshProUGUI _scoreText;
-        [SerializeField] private Button _undoButton;
-        [SerializeField] private Button _restartButton;
-        
+        [SerializeField] private GameObject _gameOverPanel;
         public static GameplayUI Instance { get; private set; }
 
         private void Awake()
@@ -20,18 +17,18 @@ namespace NMGrid.UI
             if (Instance == null)
                 Instance = this;
         }
-
-        private void Start()
-        {
-            _undoButton.onClick.AddListener(UndoLastAction);
-            _restartButton.onClick.AddListener(RestartGame);
-        }
         
         public void UpdateMoves(int value) =>  _movesText.SetText(value.ToString()); 
         public void UpdateScore(int value) =>  _scoreText.SetText(value.ToString());
-
-        private void UndoLastAction() => Controller.Instance.Undo();
         
-        private void RestartGame() => Controller.Instance.Restart();
+        public void GameOver(bool value) => _gameOverPanel.SetActive(value);
+
+        public void UndoLastAction() => Controller.Instance.Undo();
+
+        public void RestartGame()
+        {
+            _gameOverPanel.SetActive(false);
+            Controller.Instance.Restart();
+        }
     }
 }
